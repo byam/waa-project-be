@@ -34,7 +34,7 @@ public class User implements UserDetails, Serializable {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getRole().toString())).collect(Collectors.toList());
+        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getRole().name())).collect(Collectors.toList());
     }
 
     @Override

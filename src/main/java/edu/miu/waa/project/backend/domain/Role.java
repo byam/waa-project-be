@@ -1,5 +1,5 @@
 package edu.miu.waa.project.backend.domain;
-import edu.miu.waa.project.backend.enumSet.RoleValue;
+import edu.miu.waa.project.backend.enumSet.RoleType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,6 +18,6 @@ public class Role {
     private int id;
 
     @Enumerated(EnumType.STRING)
-    private RoleValue role;
+    private RoleType role;
 }
 

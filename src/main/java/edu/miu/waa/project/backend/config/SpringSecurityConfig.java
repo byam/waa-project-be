@@ -1,11 +1,12 @@
 package edu.miu.waa.project.backend.config;
 
-import edu.miu.waa.project.backend.enumSet.RoleValue;
+import edu.miu.waa.project.backend.enumSet.RoleType;
 import edu.miu.waa.project.backend.filter.JwtFilter;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -76,8 +77,10 @@ public class SpringSecurityConfig {
         http.authorizeHttpRequests()
                 .requestMatchers("/v3/**", "/swagger-ui/**").permitAll()
                 .requestMatchers("/api/v1/authenticate/**").permitAll()
-                .requestMatchers("/api/v1/properties/**").hasAuthority(RoleValue.OWNER.toString())
-                .requestMatchers("/api/v1/admin/**").hasAuthority(RoleValue.ADMIN.toString())
+                .requestMatchers(HttpMethod.GET, "/api/v1/properties**").permitAll()
+                .requestMatchers(HttpMethod.POST, "/api/v1/properties/**").hasAuthority(RoleType.OWNER.name())
+                .requestMatchers(HttpMethod.PUT, "/api/v1/properties/**").hasAuthority(RoleType.OWNER.name())
+                .requestMatchers("/api/v1/admin/**").hasAuthority(RoleType.ADMIN.toString())
                 .anyRequest().authenticated();
 
         // Add JWT token filter

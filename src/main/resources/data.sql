@@ -1,9 +1,3 @@
--- PROPERTY
-INSERT INTO PROPERTY (name)
-VALUES ('property1'),
-       ('property2');
-
-
 -- -- USERS
 
 INSERT INTO users (email, name, password)
@@ -11,7 +5,8 @@ VALUES ('admin@gmail.com', 'Admin', '$2a$12$IKEQb00u5QpZMx4v5zMweu.3wrq0pS7XLCHO
 INSERT INTO users (email, name, password)
 VALUES ('owner@gmail.com', 'Owner', '$2a$12$IKEQb00u5QpZMx4v5zMweu.3wrq0pS7XLCHO4yHZ.BW/yvWu1feo2'); --123
 INSERT INTO users (email, name, password)
-VALUES ('customer@gmail.com', 'Customer', '$2a$12$IKEQb00u5QpZMx4v5zMweu.3wrq0pS7XLCHO4yHZ.BW/yvWu1feo2');--123
+VALUES ('customer@gmail.com', 'Customer', '$2a$12$IKEQb00u5QpZMx4v5zMweu.3wrq0pS7XLCHO4yHZ.BW/yvWu1feo2');
+--123
 
 -- -- ROLES
 INSERT INTO roles (role)
