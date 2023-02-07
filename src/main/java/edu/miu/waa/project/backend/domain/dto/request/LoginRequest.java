@@ -1,4 +1,4 @@
-package edu.miu.waa.project.backend.domain.dto;
+package edu.miu.waa.project.backend.domain.dto.request;
 
 import lombok.Data;
 

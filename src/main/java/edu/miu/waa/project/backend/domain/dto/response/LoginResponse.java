@@ -1,4 +1,4 @@
-package edu.miu.waa.project.backend.domain.dto;
+package edu.miu.waa.project.backend.domain.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
