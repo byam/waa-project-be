@@ -23,7 +23,8 @@ import org.springframework.web.filter.CorsFilter;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-public class SpringSecurity {
+public class SpringSecurityConfig {
+
     private final UserDetailsService userDetailsService;
     private final JwtFilter jwtFilter;
 
@@ -49,11 +50,6 @@ public class SpringSecurity {
         return authProvider;
     }
 
-//    //If you are configuring WebSecurity to ignore requests, consider using permitAll
-//    @Bean
-//    public WebSecurityCustomizer webSecurityCustomizer() {
-//        return (web) -> web.ignoring().requestMatchers("/images/**", "/js/**", "/webjars/**");
-//    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -78,6 +74,7 @@ public class SpringSecurity {
                 .and();
         // Set permissions on endpoints
         http.authorizeHttpRequests()
+                .requestMatchers("/v3/**", "/swagger-ui/**").permitAll()
                 .requestMatchers("/api/v1/authenticate/**").permitAll()
                 .requestMatchers("/api/v1/properties/**").hasAuthority(RoleValue.OWNER.toString())
                 .requestMatchers("/api/v1/admin/**").hasAuthority(RoleValue.ADMIN.toString())
