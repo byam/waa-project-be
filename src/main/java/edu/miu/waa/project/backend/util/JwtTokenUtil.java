@@ -12,7 +12,7 @@ import java.util.function.Function;
 @Component
 public class JwtTokenUtil {
     private final String secret = "*^*&(*&DD(*&SHJ";
-    private final long expiration = 5 * 60 * 60 * 60;
+    private final long expiration =  86_400_000;
     //     private final long expiration = 5;
     private final long refreshExpiration = 5 * 60 * 60 * 60 * 60;
 
@@ -44,6 +44,7 @@ public class JwtTokenUtil {
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("role", userDetails.getAuthorities().stream().findFirst().get().getAuthority());
         return doGenerateToken(claims, userDetails.getUsername());
     }
 
