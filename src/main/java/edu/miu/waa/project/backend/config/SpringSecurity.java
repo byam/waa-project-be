@@ -1,6 +1,8 @@
 package edu.miu.waa.project.backend.config;
 
+import edu.miu.waa.project.backend.enumSet.RoleValue;
 import edu.miu.waa.project.backend.filter.JwtFilter;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -61,10 +63,24 @@ public class SpringSecurity {
         // Set session management to stateless
         http = http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and();
 
+
+        // Set unauthorized requests exception handler
+        http = http
+                .exceptionHandling()
+                .authenticationEntryPoint(
+                        (request, response, ex) -> {
+                            response.sendError(
+                                    HttpServletResponse.SC_UNAUTHORIZED,
+                                    ex.getMessage()
+                            );
+                        }
+                )
+                .and();
         // Set permissions on endpoints
         http.authorizeHttpRequests()
-                .requestMatchers("/api/authenticate/**").permitAll()
-                .requestMatchers("/api/admin/**").hasAuthority("ADMIN")
+                .requestMatchers("/api/v1/authenticate/**").permitAll()
+                .requestMatchers("/api/v1/properties/**").hasAuthority(RoleValue.OWNER.toString())
+                .requestMatchers("/api/v1/admin/**").hasAuthority(RoleValue.ADMIN.toString())
                 .anyRequest().authenticated();
 
         // Add JWT token filter

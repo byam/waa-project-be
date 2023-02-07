@@ -6,6 +6,7 @@ import edu.miu.waa.project.backend.domain.dto.request.LoginRequest;
 import edu.miu.waa.project.backend.domain.dto.request.RegisterRequest;
 import edu.miu.waa.project.backend.domain.dto.response.LoginResponse;
 import edu.miu.waa.project.backend.enumSet.RoleValue;
+import edu.miu.waa.project.backend.repo.RoleRepo;
 import edu.miu.waa.project.backend.repo.UserRepo;
 import edu.miu.waa.project.backend.service.AuthService;
 import edu.miu.waa.project.backend.util.JwtTokenUtil;
@@ -32,6 +33,7 @@ public class AuthServiceImpl implements AuthService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private final UserRepo userRepo;
+    private final RoleRepo roleRepo;
     private final JwtTokenUtil jwtUtil;
     private final ModelMapper modelMapper;
 
@@ -59,12 +61,24 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void register(RegisterRequest registerRequest) {
-        //set role
-        User user = modelMapper.map(registerRequest, User.class);
-        List<Role> roles = new ArrayList<>();
-        roles.add(Role.builder().role(registerRequest.getIsOwner() ? RoleValue.OWNER : RoleValue.CUSTOMER).build());
-        user.setRoles(roles);
-        registerRequest.setPassword(bCryptPasswordEncoder.encode(registerRequest.getPassword()));
-        userRepo.save(modelMapper.map(registerRequest, User.class));
+        try {
+            //set role
+            User user = modelMapper.map(registerRequest, User.class);
+
+            RoleValue roleValue = registerRequest.getIsOwner() ? RoleValue.OWNER : RoleValue.CUSTOMER;
+            Role role = roleRepo.findByRole(roleValue);
+
+
+            List<Role> roles = new ArrayList<>();
+            roles.add(role);
+
+            user.setRoles(roles);
+
+            //set Password
+            user.setPassword(bCryptPasswordEncoder.encode(registerRequest.getPassword()));
+            userRepo.save(user);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
