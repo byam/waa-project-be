@@ -81,8 +81,9 @@ public class SpringSecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/v1/properties").hasAuthority(RoleType.OWNER.name())
                 .requestMatchers(HttpMethod.PUT, "/api/v1/properties/*").hasAuthority(RoleType.OWNER.name())
                 .requestMatchers(HttpMethod.POST, "/api/v1/properties/*/offer").hasAuthority(RoleType.CUSTOMER.name())
-                .requestMatchers(HttpMethod.GET, "/api/v1/properties/*/offer").hasAnyAuthority(RoleType.CUSTOMER.name(),RoleType.OWNER.name())
-                .requestMatchers(HttpMethod.PUT, "/api/v1/properties/*/offer").hasAnyAuthority(RoleType.CUSTOMER.name(),RoleType.OWNER.name())
+                .requestMatchers(HttpMethod.GET, "/api/v1/properties/*/offer").hasAnyAuthority(RoleType.CUSTOMER.name(), RoleType.OWNER.name())
+                .requestMatchers(HttpMethod.PUT, "/api/v1/properties/*/offer").hasAnyAuthority(RoleType.CUSTOMER.name(), RoleType.OWNER.name())
+                .requestMatchers(HttpMethod.PUT, "/api/v1/offers").hasAnyAuthority(RoleType.CUSTOMER.name(), RoleType.OWNER.name())
 
                 .requestMatchers("/api/v1/admin/**").hasAuthority(RoleType.ADMIN.name())
                 .anyRequest().authenticated();

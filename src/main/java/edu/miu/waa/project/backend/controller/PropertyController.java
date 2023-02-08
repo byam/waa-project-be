@@ -2,7 +2,6 @@ package edu.miu.waa.project.backend.controller;
 
 import edu.miu.waa.project.backend.domain.dto.PropertyDto;
 import edu.miu.waa.project.backend.domain.dto.request.OfferRequestDto;
-import edu.miu.waa.project.backend.domain.dto.request.OfferStatusRequest;
 import edu.miu.waa.project.backend.domain.dto.request.PropertyFilterRequest;
 import edu.miu.waa.project.backend.domain.dto.response.HttpResponse;
 import edu.miu.waa.project.backend.enumSet.ListingType;
@@ -52,10 +51,6 @@ public class PropertyController {
         return offerService.save(id, offerDto);
     }
 
-    @PutMapping("/{id}/offer")
-    public void offer(@PathVariable long id, @RequestBody OfferStatusRequest request) {
-        offerService.updateStatus(id, request.getStatus());
-    }
 
     @DeleteMapping("/{id}/favourite")
     public void removeFavourite(@PathVariable long id) {
