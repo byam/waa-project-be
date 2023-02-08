@@ -38,4 +38,12 @@ public class PropertyServiceImpl implements PropertyService {
         property.setPropertyStatus(PropertyStatus.UNAVAILABLE);
         propertyRepo.save(property);
     }
+
+    @Override
+    public boolean isPropertyUNAVAILABLE(long propertyId) {
+        return propertyRepo.getPropertyStatus(propertyId).equals(PropertyStatus.UNAVAILABLE.toString());
+    }
+
+
+
 }
