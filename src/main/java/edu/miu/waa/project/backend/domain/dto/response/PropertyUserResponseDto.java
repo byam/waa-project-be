@@ -22,6 +22,7 @@ public class PropertyUserResponseDto {
     private String city;
     private String state;
     private String zipCode;
+    private String image;
     private ListingType listingType;
     private PropertyType propertyType;
     private PropertyStatus propertyStatus;

@@ -13,6 +13,7 @@ public class PropertyDto {
     private Double price;
     private String address;
     private String city;
+    private String image;
     private String state;
     private String zipCode;
     private ListingType listingType;

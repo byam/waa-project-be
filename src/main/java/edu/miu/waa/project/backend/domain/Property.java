@@ -27,6 +27,7 @@ public class Property {
     private String city;
     private String state;
     private String zipCode;
+    private String image;
     @Enumerated(EnumType.STRING)
     private ListingType listingType;
 
