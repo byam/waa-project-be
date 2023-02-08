@@ -1,12 +1,15 @@
 package edu.miu.waa.project.backend.service.impl;
 
+import edu.miu.waa.project.backend.domain.FavouriteProperty;
 import edu.miu.waa.project.backend.domain.Property;
 import edu.miu.waa.project.backend.domain.User;
 import edu.miu.waa.project.backend.domain.dto.PropertyDto;
-import edu.miu.waa.project.backend.domain.dto.UserDto;
 import edu.miu.waa.project.backend.domain.dto.request.PropertyFilterRequest;
+import edu.miu.waa.project.backend.domain.dto.request.UserRequestDto;
 import edu.miu.waa.project.backend.domain.dto.response.HttpResponse;
+import edu.miu.waa.project.backend.domain.dto.response.UserResponseDto;
 import edu.miu.waa.project.backend.enumSet.PropertyStatus;
+import edu.miu.waa.project.backend.repo.FavouriteRepo;
 import edu.miu.waa.project.backend.repo.PropertyRepo;
 import edu.miu.waa.project.backend.repo.UserRepo;
 import edu.miu.waa.project.backend.service.PropertyService;
@@ -25,6 +28,7 @@ import java.util.List;
 public class PropertyServiceImpl implements PropertyService {
     private final PropertyRepo propertyRepo;
     private final UserRepo userRepo;
+    private final FavouriteRepo favouriteRepo;
     private final UserService userService;
     private final ModelMapper modelMapper;
 
@@ -50,6 +54,25 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Override
+
+    public void favourite(long propertyId) {
+        long userid = userService.getLoggedInUser().getId();
+        favouriteRepo.save(FavouriteProperty.builder().propertyId(propertyId).customerId(userid).build());
+    }
+
+    @Override
+    public List<PropertyDto> findFavouritesByCustomer() {
+        long userid = userService.getLoggedInUser().getId();
+        return favouriteRepo.findFavouritesByCustomer(userid).stream().map(p -> modelMapper.map(p, PropertyDto.class)).toList();
+    }
+
+    @Override
+    public void removeFavourite(long propertyId) {
+        long customerId = userService.getLoggedInUser().getId();
+        favouriteRepo.deleteFavouritePropertyByPropertyIdAndAndCustomerId(propertyId, customerId);
+    }
+
+
     public HttpResponse update(long id, PropertyDto propertyDto) {
         Property propertyDB = propertyRepo.findById(id).get();
         var criticalStatus = Arrays.asList(PropertyStatus.PENDING, PropertyStatus.CONTINGENT);
@@ -79,7 +102,7 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     public boolean isOwner(long propertyOwnerId) {
-        UserDto loggedIn = userService.getLoggedInUser();
+        UserRequestDto loggedIn = userService.getLoggedInUser();
         return propertyOwnerId == loggedIn.getId();
     }
 
@@ -100,4 +123,5 @@ public class PropertyServiceImpl implements PropertyService {
             throw new RuntimeException(e);
         }
     }
+
 }

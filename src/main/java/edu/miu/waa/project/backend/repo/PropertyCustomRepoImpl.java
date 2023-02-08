@@ -31,10 +31,11 @@ public class PropertyCustomRepoImpl implements PropertyCustomRepo {
 
         if (propertyFilterRequest.getPropertyStatus() != null) {
             predicates.add(cb.equal(property.get("propertyStatus"), propertyFilterRequest.getPropertyStatus()));
-        } else {
-            predicates.add(cb.notEqual(property.get("propertyStatus"), PropertyStatus.DEAL));
-            predicates.add(cb.notEqual(property.get("propertyStatus"), PropertyStatus.UNAVAILABLE));
         }
+//        else {
+//            predicates.add(cb.notEqual(property.get("propertyStatus"), PropertyStatus.DEAL));
+//            predicates.add(cb.notEqual(property.get("propertyStatus"), PropertyStatus.UNAVAILABLE));
+//        }
 
         if (propertyFilterRequest.getCity() != null) {
             predicates.add(cb.like(property.get("city"), "%"+propertyFilterRequest.getCity()+"%"));

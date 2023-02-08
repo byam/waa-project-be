@@ -24,21 +24,10 @@ public class PropertyController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
 
-    public List<PropertyDto> findAll(
-            @RequestParam(name = "min_price", required = false) Double minPrice,
-            @RequestParam(name = "max_price", required = false) Double maxPrice,
-            @RequestParam(name = "listing_type", required = false) ListingType listingType,
-            @RequestParam(name = "property_type", required = false) PropertyType propertyType,
-            @RequestParam(name = "owner_id", required = false) Long ownerId,
-            @RequestParam(name = "property_status", required = false) PropertyStatus propertyStatus,
-            @RequestParam(name = "city", required = false) String city,
-            @RequestParam(name = "state", required = false) String state
+    public List<PropertyDto> findAll(@RequestParam(name = "min_price", required = false) Double minPrice, @RequestParam(name = "max_price", required = false) Double maxPrice, @RequestParam(name = "listing_type", required = false) ListingType listingType, @RequestParam(name = "property_type", required = false) PropertyType propertyType, @RequestParam(name = "owner_id", required = false) Long ownerId, @RequestParam(name = "property_status", required = false) PropertyStatus propertyStatus, @RequestParam(name = "city", required = false) String city, @RequestParam(name = "state", required = false) String state
 
     ) {
-        PropertyFilterRequest filters = PropertyFilterRequest.builder().minPrice(minPrice).maxPrice(maxPrice)
-                .listingType(listingType).propertyType(propertyType)
-                .city(city).state(state).propertyStatus(propertyStatus).ownerId(ownerId)
-                .build();
+        PropertyFilterRequest filters = PropertyFilterRequest.builder().minPrice(minPrice).maxPrice(maxPrice).listingType(listingType).propertyType(propertyType).city(city).state(state).propertyStatus(propertyStatus).ownerId(ownerId).build();
 
         return propertyService.findAll(filters);
     }
@@ -47,6 +36,16 @@ public class PropertyController {
     @ResponseStatus(HttpStatus.OK)
     public PropertyDto findById(@PathVariable long id) {
         return propertyService.findById(id);
+    }
+
+    @PostMapping("/{id}/favourite")
+    public void favourite(@PathVariable long id) {
+        propertyService.favourite(id);
+    }
+
+    @DeleteMapping("/{id}/favourite")
+    public void removeFavourite(@PathVariable long id) {
+        propertyService.removeFavourite(id);
     }
 
     @PostMapping
@@ -58,7 +57,7 @@ public class PropertyController {
 
     @PutMapping("/{id}/publish")
     public HttpResponse publish(@PathVariable long id) {
-        System.out.println("INSIDE");
+
         return propertyService.publish(id);
 
     }
@@ -74,4 +73,5 @@ public class PropertyController {
     public HttpResponse delete(@PathVariable long id) {
         return propertyService.delete(id);
     }
+
 }
