@@ -31,6 +31,7 @@ public class PropertyCustomRepoImpl implements PropertyCustomRepo {
         List<Predicate> predicates = new ArrayList<>();
 
         predicates.add(cb.notEqual(property.get("propertyStatus"), PropertyStatus.UNAVAILABLE));
+        predicates.add(cb.notEqual(property.get("propertyStatus"), PropertyStatus.DEAL));
 
 
         if (propertyFilterRequest.getPropertyType() != null) {
