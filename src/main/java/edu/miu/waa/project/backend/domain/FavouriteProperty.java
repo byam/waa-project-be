@@ -1,5 +1,6 @@
 package edu.miu.waa.project.backend.domain;
 
+import edu.miu.waa.project.backend.domain.compositeKey.FaviouritePK;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,12 +13,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@IdClass(FavioritePK.class)
+@IdClass(FaviouritePK.class)
 
-public class FavoriteProperty {
+public class FavouriteProperty {
         @Id
         @Column(name = "customer_id")
-        private long userid;
+        private long customerId;
 
         @Id
         @Column(name = "property_id")
@@ -25,7 +26,7 @@ public class FavoriteProperty {
 
         @ManyToOne
         @JoinColumn(name = "customer_id", insertable = false, updatable = false)
-        private User user;
+        private User customer;
 
         @ManyToOne
         @JoinColumn(name = "property_id", insertable = false, updatable = false)

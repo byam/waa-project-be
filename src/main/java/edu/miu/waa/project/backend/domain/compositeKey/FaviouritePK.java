@@ -1,4 +1,4 @@
-package edu.miu.waa.project.backend.domain;
+package edu.miu.waa.project.backend.domain.compositeKey;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
@@ -13,10 +13,10 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-public class FavioritePK implements Serializable {
+public class FaviouritePK implements Serializable {
     @Id
     @Column(name = "customer_id")
-    private long userid;
+    private long customerId;
 
     @Id
     @Column(name = "property_id")
