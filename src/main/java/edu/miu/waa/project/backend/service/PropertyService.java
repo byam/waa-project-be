@@ -7,8 +7,13 @@ import java.util.List;
 
 public interface PropertyService {
     List<Property> findAll();
-    void save(PropertyDto propertyDto);
-    boolean isPropertyUNAVAILABLE(long propertyId);
 
+    void save(PropertyDto propertyDto);
+
+    void favourite(long propertyId);
+
+    void removeFavourite(long propertyId);
+
+    List<PropertyDto> findFavouritesByCustomer();
 
 }
