@@ -1,12 +1,14 @@
 package edu.miu.waa.project.backend.controller;
 
 import edu.miu.waa.project.backend.domain.dto.PropertyDto;
+import edu.miu.waa.project.backend.domain.dto.request.InquiryRequestDto;
 import edu.miu.waa.project.backend.domain.dto.request.OfferRequestDto;
 import edu.miu.waa.project.backend.domain.dto.request.PropertyFilterRequest;
 import edu.miu.waa.project.backend.domain.dto.response.HttpResponse;
 import edu.miu.waa.project.backend.enumSet.ListingType;
 import edu.miu.waa.project.backend.enumSet.PropertyStatus;
 import edu.miu.waa.project.backend.enumSet.PropertyType;
+import edu.miu.waa.project.backend.service.InquiryService;
 import edu.miu.waa.project.backend.service.OfferService;
 import edu.miu.waa.project.backend.service.PropertyService;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +24,7 @@ public class PropertyController {
 
     private final PropertyService propertyService;
     private final OfferService offerService;
+    private final InquiryService inquiryService;
 
 
     @GetMapping
@@ -51,6 +54,10 @@ public class PropertyController {
         return offerService.save(id, offerDto);
     }
 
+    @PostMapping("/{id}/inquiry")
+    public HttpResponse inquiry(@PathVariable long id, @RequestBody InquiryRequestDto inquiryRequestDto) {
+        return inquiryService.save(id, inquiryRequestDto);
+    }
 
     @DeleteMapping("/{id}/favourite")
     public void removeFavourite(@PathVariable long id) {
@@ -66,9 +73,7 @@ public class PropertyController {
 
     @PutMapping("/{id}/publish")
     public HttpResponse publish(@PathVariable long id) {
-
         return propertyService.publish(id);
-
     }
 
     @PutMapping("/{id}")

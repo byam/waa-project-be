@@ -10,10 +10,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OfferDto {
+public class OfferResponseDto {
     private long id;
     private String message;
     private OfferStatus offerStatus;
     private Double price;
+    private long propertyId;
 
 }

@@ -2,7 +2,7 @@ package edu.miu.waa.project.backend.controller;
 
 import edu.miu.waa.project.backend.domain.dto.request.OfferStatusRequest;
 import edu.miu.waa.project.backend.domain.dto.response.HttpResponse;
-import edu.miu.waa.project.backend.domain.dto.response.OfferDto;
+import edu.miu.waa.project.backend.domain.dto.response.OfferResponseDto;
 import edu.miu.waa.project.backend.service.OfferService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,8 +19,14 @@ public class OfferController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<OfferDto> findAll() {
+    public List<OfferResponseDto> findAll() {
         return offerService.findAll();
+    }
+
+    @GetMapping("/owner/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<OfferResponseDto> findAllByOwner(@PathVariable long id) {
+        return offerService.findAllByOwner(id);
     }
 
     @PutMapping("/{id}")

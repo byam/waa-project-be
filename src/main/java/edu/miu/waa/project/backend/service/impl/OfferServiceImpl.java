@@ -6,7 +6,7 @@ import edu.miu.waa.project.backend.domain.User;
 import edu.miu.waa.project.backend.domain.dto.request.OfferRequestDto;
 import edu.miu.waa.project.backend.domain.dto.request.UserRequestDto;
 import edu.miu.waa.project.backend.domain.dto.response.HttpResponse;
-import edu.miu.waa.project.backend.domain.dto.response.OfferDto;
+import edu.miu.waa.project.backend.domain.dto.response.OfferResponseDto;
 import edu.miu.waa.project.backend.enumSet.OfferStatus;
 import edu.miu.waa.project.backend.enumSet.PropertyStatus;
 import edu.miu.waa.project.backend.repo.OfferRepo;
@@ -61,9 +61,23 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public List<OfferDto> findAll() {
+    public List<OfferResponseDto> findAll() {
         UserRequestDto loggedInUser = userService.getLoggedInUser();
-        return offerRepo.findAllByUserId(loggedInUser.getId()).stream().map(o -> modelMapper.map(o, OfferDto.class)).toList();
+        return offerRepo.findAllByUserId(loggedInUser.getId()).stream().map(o -> {
+            OfferResponseDto offer = modelMapper.map(o, OfferResponseDto.class);
+            offer.setPropertyId(o.getProperty().getId());
+            return offer;
+        }).toList();
+    }
+
+    @Override
+    public List<OfferResponseDto> findAllByOwner(long ownerId) {
+
+        return offerRepo.findAllByOwnerId(ownerId).stream().map(o -> {
+            OfferResponseDto offer = modelMapper.map(o, OfferResponseDto.class);
+            offer.setPropertyId(o.getProperty().getId());
+            return offer;
+        }).toList();
     }
 
     @Override
