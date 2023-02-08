@@ -23,11 +23,7 @@ public class PropertyController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-//    by price,
-//    by property type,
-//    by a number of rooms,
-//    home type,
-//    by location.
+
     public List<PropertyDto> findAll(
             @RequestParam(name = "min_price", required = false) Double minPrice,
             @RequestParam(name = "max_price", required = false) Double maxPrice,
@@ -64,5 +60,11 @@ public class PropertyController {
     @ResponseStatus(HttpStatus.OK)
     public void update(@PathVariable long id, @RequestBody PropertyDto propertyDto) {
         propertyService.update(id, propertyDto);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public HttpResponse delete(@PathVariable long id) {
+        return propertyService.delete(id);
     }
 }

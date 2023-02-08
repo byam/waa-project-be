@@ -15,5 +15,7 @@ public interface PropertyService {
 
     void update(long id,PropertyDto propertyDto);
 
+    HttpResponse delete(long id);
+
     HttpResponse publish(long id);
 }
