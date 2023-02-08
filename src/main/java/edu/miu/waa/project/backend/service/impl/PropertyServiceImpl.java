@@ -51,8 +51,11 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Override
     public void update(long id, PropertyDto propertyDto) {
+        Property propertyDB= propertyRepo.findById(id).get();
         Property property = modelMapper.map(propertyDto, Property.class);
         property.setId(id);
+        property.setPropertyStatus(propertyDB.getPropertyStatus());
+        property.setOwner(propertyDB.getOwner());
         propertyRepo.save(property);
     }
 
