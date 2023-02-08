@@ -1,5 +1,6 @@
 package edu.miu.waa.project.backend.util;
 
+import edu.miu.waa.project.backend.domain.User;
 import io.jsonwebtoken.*;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -44,7 +45,9 @@ public class JwtTokenUtil {
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
+        User user = (User) userDetails;
         claims.put("role", userDetails.getAuthorities().stream().findFirst().get().getAuthority());
+        claims.put("userId", user.getId());
         return doGenerateToken(claims, userDetails.getUsername());
     }
 
