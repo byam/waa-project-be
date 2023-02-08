@@ -2,6 +2,7 @@ package edu.miu.waa.project.backend.service.impl;
 
 import edu.miu.waa.project.backend.domain.User;
 import edu.miu.waa.project.backend.domain.dto.UserDto;
+import edu.miu.waa.project.backend.enumSet.RoleType;
 import edu.miu.waa.project.backend.repo.UserRepo;
 import edu.miu.waa.project.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -34,5 +35,10 @@ public class UserServiceImpl implements UserService {
             return null;
         }
 
+    }
+
+    @Override
+    public Boolean isAdmin() {
+        return userRepo.findById(getLoggedInUser().getId()).get().getRoles().stream().anyMatch(u -> u.getRole() == RoleType.ADMIN);
     }
 }
