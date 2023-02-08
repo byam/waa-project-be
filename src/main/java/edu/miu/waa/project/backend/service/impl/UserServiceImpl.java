@@ -1,7 +1,8 @@
 package edu.miu.waa.project.backend.service.impl;
 
 import edu.miu.waa.project.backend.domain.User;
-import edu.miu.waa.project.backend.domain.dto.UserDto;
+import edu.miu.waa.project.backend.domain.dto.request.UserRequestDto;
+import edu.miu.waa.project.backend.domain.dto.response.UserResponseDto;
 import edu.miu.waa.project.backend.repo.UserRepo;
 import edu.miu.waa.project.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -24,10 +25,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto getLoggedInUser() {
+    public UserResponseDto findById(long userId) {
+        return modelMapper.map(userRepo.findById(userId).get(), UserResponseDto.class);
+    }
+
+    @Override
+    public UserRequestDto getLoggedInUser() {
         try {
             User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            return modelMapper.map(loggedInUser, UserDto.class);
+            return modelMapper.map(loggedInUser, UserRequestDto.class);
 
         } catch (Exception e) {
             System.out.println("No Logged in User");
