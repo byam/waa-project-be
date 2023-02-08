@@ -13,4 +13,8 @@ public interface UserService extends UserDetailsService {
 
     Boolean isAdmin();
 
+    Boolean isOwner();
+
+    Boolean isCustomer();
+
 }

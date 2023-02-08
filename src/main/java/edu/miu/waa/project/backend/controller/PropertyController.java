@@ -1,11 +1,14 @@
 package edu.miu.waa.project.backend.controller;
 
 import edu.miu.waa.project.backend.domain.dto.PropertyDto;
+import edu.miu.waa.project.backend.domain.dto.request.OfferRequestDto;
+import edu.miu.waa.project.backend.domain.dto.request.OfferStatusRequest;
 import edu.miu.waa.project.backend.domain.dto.request.PropertyFilterRequest;
 import edu.miu.waa.project.backend.domain.dto.response.HttpResponse;
 import edu.miu.waa.project.backend.enumSet.ListingType;
 import edu.miu.waa.project.backend.enumSet.PropertyStatus;
 import edu.miu.waa.project.backend.enumSet.PropertyType;
+import edu.miu.waa.project.backend.service.OfferService;
 import edu.miu.waa.project.backend.service.PropertyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +22,7 @@ import java.util.List;
 public class PropertyController {
 
     private final PropertyService propertyService;
+    private final OfferService offerService;
 
 
     @GetMapping
@@ -41,6 +45,16 @@ public class PropertyController {
     @PostMapping("/{id}/favourite")
     public void favourite(@PathVariable long id) {
         propertyService.favourite(id);
+    }
+
+    @PostMapping("/{id}/offer")
+    public HttpResponse offer(@PathVariable long id, @RequestBody OfferRequestDto offerDto) {
+        return offerService.save(id, offerDto);
+    }
+
+    @PutMapping("/{id}/offer")
+    public void offer(@PathVariable long id, @RequestBody OfferStatusRequest request) {
+        offerService.updateStatus(id, request.getStatus());
     }
 
     @DeleteMapping("/{id}/favourite")

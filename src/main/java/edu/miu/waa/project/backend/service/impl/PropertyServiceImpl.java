@@ -7,7 +7,6 @@ import edu.miu.waa.project.backend.domain.dto.PropertyDto;
 import edu.miu.waa.project.backend.domain.dto.request.PropertyFilterRequest;
 import edu.miu.waa.project.backend.domain.dto.request.UserRequestDto;
 import edu.miu.waa.project.backend.domain.dto.response.HttpResponse;
-import edu.miu.waa.project.backend.domain.dto.response.UserResponseDto;
 import edu.miu.waa.project.backend.enumSet.PropertyStatus;
 import edu.miu.waa.project.backend.repo.FavouriteRepo;
 import edu.miu.waa.project.backend.repo.PropertyRepo;
@@ -77,7 +76,6 @@ public class PropertyServiceImpl implements PropertyService {
         Property propertyDB = propertyRepo.findById(id).get();
         var criticalStatus = Arrays.asList(PropertyStatus.PENDING, PropertyStatus.CONTINGENT);
         if (criticalStatus.contains(propertyDB.getPropertyStatus())) {
-            return HttpResponse.builder().status(HttpStatus.FORBIDDEN).message("This action is not permitted").build();
 
         }
         Property property = modelMapper.map(propertyDto, Property.class);
@@ -122,6 +120,11 @@ public class PropertyServiceImpl implements PropertyService {
             System.out.println("Exception" + e.getMessage());
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void updateStatus(long propertyId, PropertyStatus status) {
+        propertyRepo.updatePropertyStatus(propertyId, status);
     }
 
 }

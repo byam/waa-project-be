@@ -65,4 +65,14 @@ public class UserServiceImpl implements UserService {
     public Boolean isAdmin() {
         return userRepo.findById(getLoggedInUser().getId()).get().getRoles().stream().anyMatch(u -> u.getRole() == RoleType.ADMIN);
     }
+
+    @Override
+    public Boolean isOwner() {
+        return userRepo.findById(getLoggedInUser().getId()).get().getRoles().stream().anyMatch(u -> u.getRole() == RoleType.OWNER);
+    }
+
+    @Override
+    public Boolean isCustomer() {
+        return userRepo.findById(getLoggedInUser().getId()).get().getRoles().stream().anyMatch(u -> u.getRole() == RoleType.CUSTOMER);
+    }
 }
