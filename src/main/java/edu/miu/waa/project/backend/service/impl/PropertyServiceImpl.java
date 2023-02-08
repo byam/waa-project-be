@@ -54,7 +54,6 @@ public class PropertyServiceImpl implements PropertyService {
         Property propertyDB = propertyRepo.findById(id).get();
         var criticalStatus = Arrays.asList(PropertyStatus.PENDING, PropertyStatus.CONTINGENT);
         if (criticalStatus.contains(propertyDB.getPropertyStatus())) {
-            return HttpResponse.builder().status(HttpStatus.FORBIDDEN).message("This action is not permitted").build();
 
         }
         Property property = modelMapper.map(propertyDto, Property.class);
