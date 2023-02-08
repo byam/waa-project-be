@@ -3,7 +3,8 @@ package edu.miu.waa.project.backend.service.impl;
 import edu.miu.waa.project.backend.domain.Offer;
 import edu.miu.waa.project.backend.domain.Property;
 import edu.miu.waa.project.backend.domain.User;
-import edu.miu.waa.project.backend.domain.dto.OfferDto;
+import edu.miu.waa.project.backend.domain.dto.request.OfferRequestDto;
+import edu.miu.waa.project.backend.domain.dto.response.OfferDto;
 import edu.miu.waa.project.backend.domain.dto.response.HttpResponse;
 import edu.miu.waa.project.backend.enumSet.OfferStatus;
 import edu.miu.waa.project.backend.enumSet.PropertyStatus;
@@ -38,7 +39,7 @@ public class OfferServiceImpl implements OfferService {
     private final List<OfferStatus> allowedOfferStatusForOwner = Arrays.asList(OfferStatus.APPROVED, OfferStatus.CANCELLED);
 
     @Override
-    public HttpResponse save(long propertyId, OfferDto offerDto) {
+    public HttpResponse save(long propertyId, OfferRequestDto offerDto) {
 
         if (!userService.isCustomer()) {
             return HttpResponse.builder().status(HttpStatus.FORBIDDEN).message("Only Customer can send offer").build();
@@ -46,16 +47,16 @@ public class OfferServiceImpl implements OfferService {
         }
         Property property = propertyRepo.findById(propertyId).get();
         if (!allowedPropertyStatusForOffer.contains(property.getPropertyStatus())) {
-            return HttpResponse.builder().status(HttpStatus.FORBIDDEN).message("This action is not permitted").build();
+            return HttpResponse.builder().status(HttpStatus.FORBIDDEN).message("The property is not available").build();
         }
 
         Offer offer = modelMapper.map(offerDto, Offer.class);
         User user = userRepo.findById(userService.getLoggedInUser().getId()).get();
         offer.setUser(user);
         offer.setProperty(property);
-        offer.setOfferStatus(OfferStatus.INITIAL);
+        offer.setOfferStatus(OfferStatus.PENDING);
         offerRepo.save(offer);
-        return HttpResponse.builder().status(HttpStatus.OK).message("Success").build();
+        return HttpResponse.builder().status(HttpStatus.CREATED).message("Success").build();
     }
 
     @Override

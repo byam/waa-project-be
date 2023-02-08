@@ -78,8 +78,12 @@ public class SpringSecurityConfig {
                 .requestMatchers("/v3/**", "/swagger-ui/**").permitAll()
                 .requestMatchers("/api/v1/authenticate/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/properties**").permitAll()
-                .requestMatchers(HttpMethod.POST, "/api/v1/properties/**").hasAuthority(RoleType.OWNER.name())
-                .requestMatchers(HttpMethod.PUT, "/api/v1/properties/**").hasAnyAuthority(RoleType.OWNER.name(),RoleType.ADMIN.name())
+                .requestMatchers(HttpMethod.POST, "/api/v1/properties").hasAuthority(RoleType.OWNER.name())
+                .requestMatchers(HttpMethod.PUT, "/api/v1/properties/*").hasAuthority(RoleType.OWNER.name())
+                .requestMatchers(HttpMethod.POST, "/api/v1/properties/*/offer").hasAuthority(RoleType.CUSTOMER.name())
+                .requestMatchers(HttpMethod.GET, "/api/v1/properties/*/offer").hasAnyAuthority(RoleType.CUSTOMER.name(),RoleType.OWNER.name())
+                .requestMatchers(HttpMethod.PUT, "/api/v1/properties/*/offer").hasAnyAuthority(RoleType.CUSTOMER.name(),RoleType.OWNER.name())
+
                 .requestMatchers("/api/v1/admin/**").hasAuthority(RoleType.ADMIN.name())
                 .anyRequest().authenticated();
 

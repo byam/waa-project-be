@@ -1,4 +1,4 @@
-package edu.miu.waa.project.backend.domain.dto;
+package edu.miu.waa.project.backend.domain.dto.response;
 
 import edu.miu.waa.project.backend.enumSet.OfferStatus;
 import lombok.Builder;
