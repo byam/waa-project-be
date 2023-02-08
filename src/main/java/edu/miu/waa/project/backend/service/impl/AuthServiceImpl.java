@@ -5,7 +5,7 @@ import edu.miu.waa.project.backend.domain.User;
 import edu.miu.waa.project.backend.domain.dto.request.LoginRequest;
 import edu.miu.waa.project.backend.domain.dto.request.RegisterRequest;
 import edu.miu.waa.project.backend.domain.dto.response.LoginResponse;
-import edu.miu.waa.project.backend.enumSet.RoleValue;
+import edu.miu.waa.project.backend.enumSet.RoleType;
 import edu.miu.waa.project.backend.repo.RoleRepo;
 import edu.miu.waa.project.backend.repo.UserRepo;
 import edu.miu.waa.project.backend.service.AuthService;
@@ -65,7 +65,7 @@ public class AuthServiceImpl implements AuthService {
             //set role
             User user = modelMapper.map(registerRequest, User.class);
 
-            RoleValue roleValue = registerRequest.getIsOwner() ? RoleValue.OWNER : RoleValue.CUSTOMER;
+            RoleType roleValue = registerRequest.getIsOwner() ? RoleType.OWNER : RoleType.CUSTOMER;
             Role role = roleRepo.findByRole(roleValue);
 
 
