@@ -17,6 +17,11 @@ INSERT INTO properties (title, description, price, address, city, state, zip_cod
                         property_status, owner_id)
 VALUES ('Property 2', 'Very Good', 90000, '1000N', 'fairfield', 'iowa', '52557', 'RENT', 'HOUSE', 'AVAILABLE', 2);
 
+INSERT INTO properties (title, description, price, address, city, state, zip_code, listing_type, property_type,
+                        property_status, owner_id)
+VALUES ('Property 3', 'Excellent', 100000, '1000N', 'fairfield', 'iowa', '52557', 'RENT', 'APARTMENT', 'AVAILABLE', 2);
+
+
 -- -- ROLES
 INSERT INTO roles (role)
 VALUES ('ADMIN');

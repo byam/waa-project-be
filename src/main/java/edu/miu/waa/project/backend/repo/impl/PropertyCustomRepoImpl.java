@@ -1,15 +1,13 @@
 package edu.miu.waa.project.backend.repo.impl;
 
 import edu.miu.waa.project.backend.domain.Property;
+import edu.miu.waa.project.backend.domain.User;
 import edu.miu.waa.project.backend.domain.dto.request.PropertyFilterRequest;
 import edu.miu.waa.project.backend.enumSet.PropertyStatus;
 import edu.miu.waa.project.backend.repo.PropertyCustomRepo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -27,12 +25,30 @@ public class PropertyCustomRepoImpl implements PropertyCustomRepo {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Property> cq = cb.createQuery(Property.class);
         Root<Property> property = cq.from(Property.class);
+        Join<Property, User> user = property.join("owner");
 
 
         List<Predicate> predicates = new ArrayList<>();
 
-        predicates.add(cb.notEqual(property.get("propertyStatus"), PropertyStatus.UNAVAILABLE));
-        predicates.add(cb.notEqual(property.get("propertyStatus"), PropertyStatus.DEAL));
+        if (propertyFilterRequest.getPropertyStatus() != null) {
+            predicates.add(cb.equal(property.get("propertyStatus"), propertyFilterRequest.getPropertyStatus()));
+        }
+//        else {
+//            predicates.add(cb.notEqual(property.get("propertyStatus"), PropertyStatus.DEAL));
+//            predicates.add(cb.notEqual(property.get("propertyStatus"), PropertyStatus.UNAVAILABLE));
+//        }
+
+        if (propertyFilterRequest.getCity() != null) {
+            predicates.add(cb.like(property.get("city"), "%"+propertyFilterRequest.getCity()+"%"));
+        }
+
+        if (propertyFilterRequest.getState() != null) {
+            predicates.add(cb.like(property.get("state"), "%"+propertyFilterRequest.getState()+"%"));
+        }
+
+        if (propertyFilterRequest.getOwnerId() != null) {
+            predicates.add(cb.equal(user.get("id"), propertyFilterRequest.getOwnerId()));
+        }
 
 
         if (propertyFilterRequest.getPropertyType() != null) {

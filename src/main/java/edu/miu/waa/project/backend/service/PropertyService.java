@@ -7,15 +7,26 @@ import edu.miu.waa.project.backend.domain.dto.response.HttpResponse;
 import java.util.List;
 
 public interface PropertyService {
+
+
+    void save(PropertyDto propertyDto);
+
+    void favourite(long propertyId);
+
+    void removeFavourite(long propertyId);
+
+    List<PropertyDto> findFavouritesByCustomer();
+
+
     List<PropertyDto> findAll(PropertyFilterRequest propertyFilterRequest);
 
     PropertyDto findById(long id);
 
-    void save(PropertyDto propertyDto);
 
-    HttpResponse update(long id,PropertyDto propertyDto);
+    HttpResponse update(long id, PropertyDto propertyDto);
 
     HttpResponse delete(long id);
 
     HttpResponse publish(long id);
+
 }
