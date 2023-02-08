@@ -1,5 +1,7 @@
 package edu.miu.waa.project.backend.domain.dto.request;
 
+import edu.miu.waa.project.backend.enumSet.ListingType;
+import edu.miu.waa.project.backend.enumSet.PropertyType;
 import lombok.Builder;
 import lombok.Data;
 
@@ -8,6 +10,6 @@ import lombok.Data;
 public class PropertyFilterRequest {
     private Double minPrice;
     private Double maxPrice;
-    private Double listingType;
-    private Double propertyType;
+    private ListingType listingType;
+    private PropertyType propertyType;
 }

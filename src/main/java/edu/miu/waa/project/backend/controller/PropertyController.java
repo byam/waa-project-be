@@ -3,6 +3,8 @@ package edu.miu.waa.project.backend.controller;
 import edu.miu.waa.project.backend.domain.dto.PropertyDto;
 import edu.miu.waa.project.backend.domain.dto.request.PropertyFilterRequest;
 import edu.miu.waa.project.backend.domain.dto.response.HttpResponse;
+import edu.miu.waa.project.backend.enumSet.ListingType;
+import edu.miu.waa.project.backend.enumSet.PropertyType;
 import edu.miu.waa.project.backend.service.PropertyService;
 import edu.miu.waa.project.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -29,8 +31,8 @@ public class PropertyController {
     public List<PropertyDto> findAll(
             @RequestParam(name = "min_price", required = false) Double minPrice,
             @RequestParam(name = "max_price", required = false) Double maxPrice,
-            @RequestParam(name = "listing_type", required = false) Double listingType,
-            @RequestParam(name = "property_type", required = false) Double propertyType
+            @RequestParam(name = "listing_type", required = false) ListingType listingType,
+            @RequestParam(name = "property_type", required = false) PropertyType propertyType
 
     ) {
         PropertyFilterRequest filters = PropertyFilterRequest.builder().minPrice(minPrice).maxPrice(maxPrice).listingType(listingType).propertyType(propertyType).build();
