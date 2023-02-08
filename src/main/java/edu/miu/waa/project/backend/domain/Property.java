@@ -9,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 
+import java.util.List;
+
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
@@ -38,4 +40,7 @@ public class Property {
     @ManyToOne
     @JoinColumn(name = "owner_id")
     private User owner;
+
+    @OneToMany(mappedBy = "property")
+    private List<Offer> offers;
 }

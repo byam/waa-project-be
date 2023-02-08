@@ -9,4 +9,8 @@ public interface UserService extends UserDetailsService {
     UserDto getLoggedInUser();
 
     Boolean isAdmin();
+
+    Boolean isOwner();
+
+    Boolean isCustomer();
 }

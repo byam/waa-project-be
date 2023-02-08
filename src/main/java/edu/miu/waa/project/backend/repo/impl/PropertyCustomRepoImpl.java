@@ -1,8 +1,9 @@
-package edu.miu.waa.project.backend.repo;
+package edu.miu.waa.project.backend.repo.impl;
 
 import edu.miu.waa.project.backend.domain.Property;
 import edu.miu.waa.project.backend.domain.dto.request.PropertyFilterRequest;
 import edu.miu.waa.project.backend.enumSet.PropertyStatus;
+import edu.miu.waa.project.backend.repo.PropertyCustomRepo;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
