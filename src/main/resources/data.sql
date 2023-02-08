@@ -1,4 +1,4 @@
--- -- USERS
+-- USERS
 
 INSERT INTO users (email, name, password)
 VALUES ('admin@gmail.com', 'Admin', '$2a$12$IKEQb00u5QpZMx4v5zMweu.3wrq0pS7XLCHO4yHZ.BW/yvWu1feo2'); --123
@@ -7,6 +7,15 @@ VALUES ('owner@gmail.com', 'Owner', '$2a$12$IKEQb00u5QpZMx4v5zMweu.3wrq0pS7XLCHO
 INSERT INTO users (email, name, password)
 VALUES ('customer@gmail.com', 'Customer', '$2a$12$IKEQb00u5QpZMx4v5zMweu.3wrq0pS7XLCHO4yHZ.BW/yvWu1feo2');
 --123
+
+-- PROPERTY
+INSERT INTO properties (title, description, price, address, city, state, zip_code, listing_type, property_type,
+                        property_status, owner_id)
+VALUES ('Property 1', 'Awesome', 50000, '1000N', 'fairfield', 'iowa', '52557', 'SALE', 'CONDO', 'UNAVAILABLE', 2);
+
+INSERT INTO properties (title, description, price, address, city, state, zip_code, listing_type, property_type,
+                        property_status, owner_id)
+VALUES ('Property 2', 'Very Good', 90000, '1000N', 'fairfield', 'iowa', '52557', 'RENT', 'HOUSE', 'AVAILABLE', 2);
 
 -- -- ROLES
 INSERT INTO roles (role)

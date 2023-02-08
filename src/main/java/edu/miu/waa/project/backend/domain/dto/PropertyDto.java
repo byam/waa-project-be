@@ -1,11 +1,13 @@
 package edu.miu.waa.project.backend.domain.dto;
 
 import edu.miu.waa.project.backend.enumSet.ListingType;
+import edu.miu.waa.project.backend.enumSet.PropertyStatus;
 import edu.miu.waa.project.backend.enumSet.PropertyType;
 import lombok.Data;
 
 @Data
 public class PropertyDto {
+    private long id;
     private String title;
     private String description;
     private Double price;
@@ -15,6 +17,7 @@ public class PropertyDto {
     private String zipCode;
     private ListingType listingType;
     private PropertyType propertyType;
+    private PropertyStatus propertyStatus;
 
     private Long ownerId;
 

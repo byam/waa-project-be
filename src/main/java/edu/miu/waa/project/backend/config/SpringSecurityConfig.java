@@ -79,8 +79,8 @@ public class SpringSecurityConfig {
                 .requestMatchers("/api/v1/authenticate/**").permitAll()
                 .requestMatchers(HttpMethod.GET, "/api/v1/properties**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/properties/**").hasAuthority(RoleType.OWNER.name())
-                .requestMatchers(HttpMethod.PUT, "/api/v1/properties/**").hasAuthority(RoleType.OWNER.name())
-                .requestMatchers("/api/v1/admin/**").hasAuthority(RoleType.ADMIN.toString())
+                .requestMatchers(HttpMethod.PUT, "/api/v1/properties/**").hasAnyAuthority(RoleType.OWNER.name(),RoleType.ADMIN.name())
+                .requestMatchers("/api/v1/admin/**").hasAuthority(RoleType.ADMIN.name())
                 .anyRequest().authenticated();
 
         // Add JWT token filter

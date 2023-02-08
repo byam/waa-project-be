@@ -1,5 +1,6 @@
 package edu.miu.waa.project.backend.util;
 
+import edu.miu.waa.project.backend.domain.User;
 import io.jsonwebtoken.*;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
@@ -12,7 +13,7 @@ import java.util.function.Function;
 @Component
 public class JwtTokenUtil {
     private final String secret = "*^*&(*&DD(*&SHJ";
-    private final long expiration = 5 * 60 * 60 * 60;
+    private final long expiration =  86_400_000;
     //     private final long expiration = 5;
     private final long refreshExpiration = 5 * 60 * 60 * 60 * 60;
 
@@ -44,6 +45,9 @@ public class JwtTokenUtil {
 
     public String generateToken(UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
+        User user = (User) userDetails;
+        claims.put("role", userDetails.getAuthorities().stream().findFirst().get().getAuthority());
+        claims.put("userId", user.getId());
         return doGenerateToken(claims, userDetails.getUsername());
     }
 

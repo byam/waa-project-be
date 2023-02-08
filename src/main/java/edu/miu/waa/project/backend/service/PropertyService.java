@@ -1,12 +1,13 @@
 package edu.miu.waa.project.backend.service;
 
-import edu.miu.waa.project.backend.domain.Property;
 import edu.miu.waa.project.backend.domain.dto.PropertyDto;
+import edu.miu.waa.project.backend.domain.dto.request.PropertyFilterRequest;
+import edu.miu.waa.project.backend.domain.dto.response.HttpResponse;
 
 import java.util.List;
 
 public interface PropertyService {
-    List<Property> findAll();
+
 
     void save(PropertyDto propertyDto);
 
@@ -15,5 +16,17 @@ public interface PropertyService {
     void removeFavourite(long propertyId);
 
     List<PropertyDto> findFavouritesByCustomer();
+
+
+    List<PropertyDto> findAll(PropertyFilterRequest propertyFilterRequest);
+
+    PropertyDto findById(long id);
+
+
+    HttpResponse update(long id, PropertyDto propertyDto);
+
+    HttpResponse delete(long id);
+
+    HttpResponse publish(long id);
 
 }

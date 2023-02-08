@@ -1,8 +1,8 @@
 package edu.miu.waa.project.backend.service.impl;
 
 import edu.miu.waa.project.backend.domain.User;
-import edu.miu.waa.project.backend.domain.dto.request.UserRequestDto;
 import edu.miu.waa.project.backend.domain.dto.response.UserResponseDto;
+import edu.miu.waa.project.backend.enumSet.RoleType;
 import edu.miu.waa.project.backend.repo.UserRepo;
 import edu.miu.waa.project.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -30,15 +30,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserRequestDto getLoggedInUser() {
+    public UserResponseDto getLoggedInUser() {
         try {
             User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            return modelMapper.map(loggedInUser, UserRequestDto.class);
+            return modelMapper.map(loggedInUser, UserResponseDto.class);
 
         } catch (Exception e) {
             System.out.println("No Logged in User");
             return null;
         }
 
+    }
+
+    @Override
+    public Boolean isAdmin() {
+        return userRepo.findById(getLoggedInUser().getId()).get().getRoles().stream().anyMatch(u -> u.getRole() == RoleType.ADMIN);
     }
 }
