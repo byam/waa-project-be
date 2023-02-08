@@ -50,13 +50,20 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Override
-    public void update(long id, PropertyDto propertyDto) {
-        Property propertyDB= propertyRepo.findById(id).get();
+    public HttpResponse update(long id, PropertyDto propertyDto) {
+        Property propertyDB = propertyRepo.findById(id).get();
+        var criticalStatus = Arrays.asList(PropertyStatus.PENDING, PropertyStatus.CONTINGENT);
+        if (criticalStatus.contains(propertyDB.getPropertyStatus())) {
+            return HttpResponse.builder().status(HttpStatus.FORBIDDEN).message("This action is not permitted").build();
+
+        }
         Property property = modelMapper.map(propertyDto, Property.class);
         property.setId(id);
         property.setPropertyStatus(propertyDB.getPropertyStatus());
         property.setOwner(propertyDB.getOwner());
         propertyRepo.save(property);
+        return HttpResponse.builder().status(HttpStatus.OK).message("The property is deleted").build();
+
     }
 
     @Override

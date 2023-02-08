@@ -58,8 +58,8 @@ public class PropertyController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void update(@PathVariable long id, @RequestBody PropertyDto propertyDto) {
-        propertyService.update(id, propertyDto);
+    public HttpResponse update(@PathVariable long id, @RequestBody PropertyDto propertyDto) {
+        return propertyService.update(id, propertyDto);
     }
 
     @DeleteMapping("/{id}")

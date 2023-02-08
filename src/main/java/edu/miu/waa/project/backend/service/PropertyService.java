@@ -13,7 +13,7 @@ public interface PropertyService {
 
     void save(PropertyDto propertyDto);
 
-    void update(long id,PropertyDto propertyDto);
+    HttpResponse update(long id,PropertyDto propertyDto);
 
     HttpResponse delete(long id);
 
