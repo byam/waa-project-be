@@ -32,6 +32,9 @@ public class User implements UserDetails, Serializable {
     @OneToMany(mappedBy = "owner")
     private List<Property> properties;
 
+    @OneToMany(mappedBy = "customer")
+    private List<FavouriteProperty> favourites;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream().map(r -> new SimpleGrantedAuthority(r.getRole().name())).collect(Collectors.toList());

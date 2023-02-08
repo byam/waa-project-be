@@ -48,8 +48,8 @@ public class AuthServiceImpl implements AuthService {
 
             final String accessToken = jwtUtil.generateToken(userDetails);
 
-            final String refreshToken = jwtUtil.generateRefreshToken(loginRequest.getEmail());
-            var loginResponse = new LoginResponse(accessToken, refreshToken);
+//            final String refreshToken = jwtUtil.generateRefreshToken(loginRequest.getEmail());
+            var loginResponse = new LoginResponse(accessToken);
             return loginResponse;
         } catch (BadCredentialsException e) {
             System.out.println("ISSUE" + e.getMessage());
