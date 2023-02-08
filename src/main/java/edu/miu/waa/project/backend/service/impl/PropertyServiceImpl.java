@@ -5,6 +5,7 @@ import edu.miu.waa.project.backend.domain.Property;
 import edu.miu.waa.project.backend.domain.User;
 import edu.miu.waa.project.backend.domain.dto.PropertyDto;
 import edu.miu.waa.project.backend.domain.dto.request.PropertyFilterRequest;
+import edu.miu.waa.project.backend.domain.dto.request.UserRequestDto;
 import edu.miu.waa.project.backend.domain.dto.response.HttpResponse;
 import edu.miu.waa.project.backend.domain.dto.response.UserResponseDto;
 import edu.miu.waa.project.backend.enumSet.PropertyStatus;
@@ -101,7 +102,7 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     public boolean isOwner(long propertyOwnerId) {
-        UserResponseDto loggedIn = userService.getLoggedInUser();
+        UserRequestDto loggedIn = userService.getLoggedInUser();
         return propertyOwnerId == loggedIn.getId();
     }
 

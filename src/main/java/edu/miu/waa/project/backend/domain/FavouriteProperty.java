@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 
 @Entity
+@Table(name="favourite_properties")
 @Data
 @Builder
 @NoArgsConstructor
