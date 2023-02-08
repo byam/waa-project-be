@@ -4,8 +4,9 @@ import edu.miu.waa.project.backend.domain.Offer;
 import edu.miu.waa.project.backend.domain.Property;
 import edu.miu.waa.project.backend.domain.User;
 import edu.miu.waa.project.backend.domain.dto.request.OfferRequestDto;
-import edu.miu.waa.project.backend.domain.dto.response.OfferDto;
+import edu.miu.waa.project.backend.domain.dto.request.UserRequestDto;
 import edu.miu.waa.project.backend.domain.dto.response.HttpResponse;
+import edu.miu.waa.project.backend.domain.dto.response.OfferDto;
 import edu.miu.waa.project.backend.enumSet.OfferStatus;
 import edu.miu.waa.project.backend.enumSet.PropertyStatus;
 import edu.miu.waa.project.backend.repo.OfferRepo;
@@ -57,6 +58,12 @@ public class OfferServiceImpl implements OfferService {
         offer.setOfferStatus(OfferStatus.PENDING);
         offerRepo.save(offer);
         return HttpResponse.builder().status(HttpStatus.CREATED).message("Success").build();
+    }
+
+    @Override
+    public List<OfferDto> findAll() {
+        UserRequestDto loggedInUser = userService.getLoggedInUser();
+        return offerRepo.findAllByUserId(loggedInUser.getId()).stream().map(o -> modelMapper.map(o, OfferDto.class)).toList();
     }
 
     @Override
