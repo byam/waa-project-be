@@ -59,8 +59,7 @@ public class OfferServiceImpl implements OfferService {
         offer.setProperty(property);
         offer.setOfferStatus(OfferStatus.PENDING);
         offerRepo.save(offer);
-        emailService.send(offer.getProperty().getOwner().getEmail(),"Some Subject", "Some Body");
-        emailService.send("abenezer.dana@miu.edu","some", "some");
+        emailService.send(property.getOwner().getEmail(), "Your Property - " + property.getTitle() + " has an offer", offer.getUser().getName() + " has offered you " + offer.getPrice());
         return HttpResponse.builder().status(HttpStatus.CREATED).message("Success").build();
     }
 
