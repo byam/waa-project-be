@@ -57,10 +57,30 @@ public class InquiryServiceImpl implements InquiryService {
     }
 
 
-
     @Override
     public List<InquiryResponseDto> findAll() {
         UserRequestDto loggedInUser = userService.getLoggedInUser();
-        return inquiryRepo.findAllByUserId(loggedInUser.getId()).stream().map(o -> modelMapper.map(o, InquiryResponseDto.class)).toList();
+        if (userService.isCustomer()) {
+            return inquiryRepo.findAllByUserId(loggedInUser.getId()).stream().map(o -> {
+                InquiryResponseDto inquiry = modelMapper.map(o, InquiryResponseDto.class);
+                inquiry.setPropertyId(o.getProperty().getId());
+                return inquiry;
+            }).toList();
+
+        }
+        if (userService.isOwner()) {
+            return findAllByOwner(loggedInUser.getId());
+        }
+        return null;
+    }
+
+    @Override
+    public List<InquiryResponseDto> findAllByOwner(long ownerId) {
+
+        return inquiryRepo.findAllByOwnerId(ownerId).stream().map(i -> {
+            InquiryResponseDto inquiry = modelMapper.map(i, InquiryResponseDto.class);
+            inquiry.setPropertyId(i.getProperty().getId());
+            return inquiry;
+        }).toList();
     }
 }

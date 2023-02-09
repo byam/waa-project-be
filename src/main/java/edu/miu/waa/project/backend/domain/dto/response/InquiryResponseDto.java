@@ -6,4 +6,6 @@ import lombok.Data;
 public class InquiryResponseDto {
     private long id;
     private String message;
+
+    private long propertyId;
 }

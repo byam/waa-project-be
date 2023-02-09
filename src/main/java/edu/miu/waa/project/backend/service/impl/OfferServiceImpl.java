@@ -94,7 +94,7 @@ public class OfferServiceImpl implements OfferService {
             return HttpResponse.builder().status(HttpStatus.FORBIDDEN).message("This action is not permitted").build();
         }
 
-        if (userService.isCustomer() && !allowedOfferStatusForCustomer.contains(status)) {
+        if (userService.isCustomer() && !allowedOfferStatusForCustomer.contains(status) && offer.getProperty().getPropertyStatus() != PropertyStatus.CONTINGENT) {
             return HttpResponse.builder().status(HttpStatus.FORBIDDEN).message("This action is not permitted").build();
         }
 
