@@ -30,6 +30,10 @@ public interface PropertyService {
 
     HttpResponse publish(long id);
 
+    HttpResponse cancelContigency(long id);
+
+    HttpResponse upgradeToContigency(long id);
+
     void updateStatus(long propertyId, PropertyStatus status);
 
 }

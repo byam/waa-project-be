@@ -123,6 +123,48 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Override
+    public HttpResponse upgradeToContigency(long id) {
+        try {
+            if (!userService.isOwner()) {
+                return HttpResponse.builder().status(HttpStatus.FORBIDDEN).message("This action can only be performed by owner").build();
+
+            }
+            Property property = propertyRepo.findById(id).get();
+            if (property.getPropertyStatus() != PropertyStatus.PENDING) {
+                return HttpResponse.builder().status(HttpStatus.FORBIDDEN).message("This action can only be done for pending status").build();
+
+            }
+            property.setPropertyStatus(PropertyStatus.CONTINGENT);
+            propertyRepo.save(property);
+            return HttpResponse.builder().status(HttpStatus.OK).message("Property Upgraded to contingent").build();
+        } catch (Exception e) {
+            System.out.println("Exception" + e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public HttpResponse cancelContigency(long id) {
+        try {
+            if (!userService.isOwner()) {
+                return HttpResponse.builder().status(HttpStatus.FORBIDDEN).message("This action can only be performed by owner").build();
+
+            }
+            Property property = propertyRepo.findById(id).get();
+            if (property.getPropertyStatus() != PropertyStatus.CONTINGENT) {
+                return HttpResponse.builder().status(HttpStatus.FORBIDDEN).message("This action can only be done for contingent status").build();
+
+            }
+            property.setPropertyStatus(PropertyStatus.AVAILABLE);
+            propertyRepo.save(property);
+            return HttpResponse.builder().status(HttpStatus.OK).message("Property is available to customers").build();
+        } catch (Exception e) {
+            System.out.println("Exception" + e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public void updateStatus(long propertyId, PropertyStatus status) {
         propertyRepo.updatePropertyStatus(propertyId, status);
     }

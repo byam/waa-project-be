@@ -77,6 +77,17 @@ public class PropertyController {
         return propertyService.publish(id);
     }
 
+    @PutMapping("/{id}/cancel-contingent")
+    public HttpResponse cancelContingent(@PathVariable long id) {
+        return propertyService.cancelContigency(id);
+    }
+
+    @PutMapping("/{id}/contingent")
+    public HttpResponse upgradeToContingent(@PathVariable long id) {
+        return propertyService.upgradeToContigency(id);
+    }
+
+
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public HttpResponse update(@PathVariable long id, @RequestBody PropertyDto propertyDto) {
