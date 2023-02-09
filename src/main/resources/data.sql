@@ -39,8 +39,20 @@ VALUES ('Property 5', 'Beautiful', 200000, '1000N',
         'https://plus.unsplash.com/premium_photo-1673686854151-e56e836758f8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fGJ1aWxkaW5nc3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60',
         'fairfield', 'iowa', '52557', 'RENT', 'APARTMENT', 'CONTINGENT', 2);
 
+
+-- -- OFFERS
+INSERT INTO offers (message, offer_status, price, property_id, user_id)
+VALUES ('I Like this Property', 'APPROVED', 80000, 2, 3);
+
+INSERT INTO offers (message, offer_status, price, property_id, user_id)
+VALUES ('I want to offer Property', 'PENDING', 80000, 5, 3);
+
+INSERT INTO offers (message, offer_status, price, property_id, user_id)
+VALUES ('I am in love', 'APPROVED', 80000, 5, 3);
+
 -- -- ROLES
-INSERT INTO roles (role)
+    INSERT
+INTO roles (role)
 VALUES ('ADMIN');
 INSERT INTO roles (role)
 VALUES ('OWNER');
