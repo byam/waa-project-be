@@ -12,6 +12,7 @@ import edu.miu.waa.project.backend.enumSet.PropertyStatus;
 import edu.miu.waa.project.backend.repo.OfferRepo;
 import edu.miu.waa.project.backend.repo.PropertyRepo;
 import edu.miu.waa.project.backend.repo.UserRepo;
+import edu.miu.waa.project.backend.service.EmailService;
 import edu.miu.waa.project.backend.service.OfferService;
 import edu.miu.waa.project.backend.service.PropertyService;
 import edu.miu.waa.project.backend.service.UserService;
@@ -33,6 +34,7 @@ public class OfferServiceImpl implements OfferService {
     private final UserRepo userRepo;
     private final OfferRepo offerRepo;
     private final PropertyRepo propertyRepo;
+    private final EmailService emailService;
 
 
     private final List<PropertyStatus> allowedPropertyStatusForOffer = Arrays.asList(PropertyStatus.AVAILABLE, PropertyStatus.PENDING);
@@ -57,6 +59,7 @@ public class OfferServiceImpl implements OfferService {
         offer.setProperty(property);
         offer.setOfferStatus(OfferStatus.PENDING);
         offerRepo.save(offer);
+        emailService.send(property.getOwner().getEmail(), "Your Property - " + property.getTitle() + " has an offer", offer.getUser().getName() + " has offered you " + offer.getPrice());
         return HttpResponse.builder().status(HttpStatus.CREATED).message("Success").build();
     }
 
