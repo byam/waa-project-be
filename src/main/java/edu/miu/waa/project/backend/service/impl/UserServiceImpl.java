@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
                         .ownerId(p.getOwner().getId()).title(p.getTitle()).zipCode(p.getZipCode())
                         .build());
             });
-            results.setFavourites(favourites);
+            results.setProperties(favourites);
         }
 
 

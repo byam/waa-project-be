@@ -21,6 +21,6 @@ public class UserResponseDto {
     private String email;
 
     private List<PropertyDto> properties;
-    private List<PropertyDto> favourites;
+
 
 }
