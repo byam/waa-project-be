@@ -77,7 +77,7 @@ public class SpringSecurityConfig {
         http.authorizeHttpRequests()
                 .requestMatchers("/v3/**", "/swagger-ui/**").permitAll()
                 .requestMatchers("/api/v1/authenticate/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/v1/properties**").permitAll()
+                .requestMatchers(HttpMethod.GET, "/api/v1/properties/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/properties").hasAuthority(RoleType.OWNER.name())
                 .requestMatchers(HttpMethod.PUT, "/api/v1/properties/*").hasAuthority(RoleType.OWNER.name())
 
