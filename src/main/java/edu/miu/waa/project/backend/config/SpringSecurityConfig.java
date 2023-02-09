@@ -92,7 +92,7 @@ public class SpringSecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/v1/properties/*/offer").hasAnyAuthority(RoleType.CUSTOMER.name(), RoleType.OWNER.name())
                 .requestMatchers(HttpMethod.PUT, "/api/v1/properties/*/offer").hasAnyAuthority(RoleType.CUSTOMER.name(), RoleType.OWNER.name())
 
-                .requestMatchers(HttpMethod.GET, "/api/v1/offers").hasAuthority(RoleType.CUSTOMER.name())
+                .requestMatchers(HttpMethod.GET, "/api/v1/offers").hasAnyAuthority(RoleType.CUSTOMER.name(), RoleType.OWNER.name())
                 .requestMatchers(HttpMethod.GET, "/api/v1/offers/owner/*").hasAuthority(RoleType.OWNER.name())
 
 

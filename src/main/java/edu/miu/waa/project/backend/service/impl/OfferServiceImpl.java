@@ -63,11 +63,17 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public List<OfferResponseDto> findAll() {
         UserRequestDto loggedInUser = userService.getLoggedInUser();
-        return offerRepo.findAllByUserId(loggedInUser.getId()).stream().map(o -> {
-            OfferResponseDto offer = modelMapper.map(o, OfferResponseDto.class);
-            offer.setPropertyId(o.getProperty().getId());
-            return offer;
-        }).toList();
+        if (userService.isCustomer()) {
+            return offerRepo.findAllByUserId(loggedInUser.getId()).stream().map(o -> {
+                OfferResponseDto offer = modelMapper.map(o, OfferResponseDto.class);
+                offer.setPropertyId(o.getProperty().getId());
+                return offer;
+            }).toList();
+        }
+        if (userService.isOwner()) {
+            return findAllByOwner(loggedInUser.getId());
+        }
+        return null;
     }
 
     @Override
