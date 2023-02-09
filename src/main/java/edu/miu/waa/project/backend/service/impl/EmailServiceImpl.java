@@ -17,7 +17,7 @@ import java.io.UnsupportedEncodingException;
 @Data
 @Builder
 public class EmailServiceImpl implements EmailService {
-    private static final String SENDER_EMAIL = "waaprojectfinal@gmail.com";
+    private static final String SENDER_EMAIL = "waaboom123@outlook.com";
     private final JavaMailSender javaMailSender;
 
 
@@ -32,32 +32,10 @@ public class EmailServiceImpl implements EmailService {
             message.setSubject(subject);
             message.setText(body);
             javaMailSender.send(message);
-            System.out.println("Mail is sucssesful");
 
         } catch (MailException mailException) {
             mailException.printStackTrace();
         }
     }
 
-    @Override
-    public void sendWithHTMLBody(String to, String subject, String body) {
-        MimeMessage message = javaMailSender.createMimeMessage();
-        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message);
-
-        try {
-            mimeMessageHelper.setFrom(SENDER_EMAIL, "WAA FINAL");
-            mimeMessageHelper.setTo(to);
-            mimeMessageHelper.setSubject(subject);
-            mimeMessageHelper.setText(body, true);
-
-            javaMailSender.send(message);
-
-        } catch (MessagingException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-
-
-    }
 }
