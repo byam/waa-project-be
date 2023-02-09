@@ -156,6 +156,7 @@ public class PropertyServiceImpl implements PropertyService {
 
             }
             property.setPropertyStatus(PropertyStatus.AVAILABLE);
+            //set any offers for this property to
             propertyRepo.save(property);
             return HttpResponse.builder().status(HttpStatus.OK).message("Property is available to customers").build();
         } catch (Exception e) {

@@ -32,18 +32,18 @@ public class InquiryServiceImpl implements InquiryService {
     private final InquiryRepo inquiryRepo;
 
 
-    private final List<PropertyStatus> allowedPropertyStatusForOffer = Arrays.asList(PropertyStatus.AVAILABLE, PropertyStatus.PENDING);
+    private final List<PropertyStatus> allowedPropertyStatusForInquiry = Arrays.asList(PropertyStatus.AVAILABLE, PropertyStatus.PENDING);
 
 
     @Override
     public HttpResponse save(long propertyId, InquiryRequestDto inquiryRequestDto) {
         if (!userService.isCustomer()) {
-            return HttpResponse.builder().status(HttpStatus.FORBIDDEN).message("Only Customer can send offer").build();
+            return HttpResponse.builder().status(HttpStatus.FORBIDDEN).message("Only Customer can send inquiry").build();
         }
 
         Property property = propertyRepo.findById(propertyId).get();
 
-        if (!allowedPropertyStatusForOffer.contains(property.getPropertyStatus())) {
+        if (!allowedPropertyStatusForInquiry.contains(property.getPropertyStatus())) {
             return HttpResponse.builder().status(HttpStatus.FORBIDDEN).message("The property is not available").build();
         }
 
