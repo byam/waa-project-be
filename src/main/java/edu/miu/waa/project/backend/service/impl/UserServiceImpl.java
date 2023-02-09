@@ -1,8 +1,9 @@
 package edu.miu.waa.project.backend.service.impl;
 
+import edu.miu.waa.project.backend.domain.Property;
 import edu.miu.waa.project.backend.domain.User;
+import edu.miu.waa.project.backend.domain.dto.PropertyDto;
 import edu.miu.waa.project.backend.domain.dto.request.UserRequestDto;
-import edu.miu.waa.project.backend.domain.dto.response.PropertyUserResponseDto;
 import edu.miu.waa.project.backend.domain.dto.response.UserResponseDto;
 import edu.miu.waa.project.backend.enumSet.RoleType;
 import edu.miu.waa.project.backend.repo.UserRepo;
@@ -32,19 +33,35 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto findById(long userId) {
         User user = userRepo.findById(userId).get();
-        UserResponseDto results = modelMapper.map(user, UserResponseDto.class);
-        List<PropertyUserResponseDto> properties = new ArrayList<>();
+        UserResponseDto results = UserResponseDto.builder().id(user.getId()).email(user.getEmail()).name(user.getName()).build();
 
-        user.getProperties().forEach(p -> {
-            properties.add(PropertyUserResponseDto.builder().price(p.getPrice()).state(p.getState()).address(p.getAddress()).id(p.getId())
-                    .city(p.getCity()).listingType(p.getListingType()).propertyType(p.getPropertyType())
-                    .ownerId(p.getOwner().getId()).title(p.getTitle()).zipCode(p.getZipCode())
-                    .isFavourite(user.getFavourites().stream().anyMatch(f -> f.getProperty().getId() == p.getId()))
-                    .build());
-        });
+        if (isOwner()) {
+
+            List<PropertyDto> properties = new ArrayList<>();
+            user.getProperties().forEach(p -> {
+                properties.add(PropertyDto.builder().price(p.getPrice()).state(p.getState()).address(p.getAddress()).id(p.getId())
+                        .city(p.getCity()).listingType(p.getListingType()).propertyType(p.getPropertyType()).image(p.getImage())
+                        .ownerId(p.getOwner().getId()).title(p.getTitle()).zipCode(p.getZipCode())
+
+                        .build());
+            });
+            results.setProperties(properties);
+        }
+
+        if (isCustomer()) {
+
+            List<PropertyDto> favourites = new ArrayList<>();
+            user.getFavourites().forEach(f -> {
+                Property p = f.getProperty();
+                favourites.add(PropertyDto.builder().price(p.getPrice()).state(p.getState()).address(p.getAddress()).id(p.getId())
+                        .city(p.getCity()).listingType(p.getListingType()).propertyType(p.getPropertyType()).image(p.getImage())
+                        .ownerId(p.getOwner().getId()).title(p.getTitle()).zipCode(p.getZipCode())
+                        .build());
+            });
+            results.setFavourites(favourites);
+        }
 
 
-        results.setProperties(properties);
         return results;
     }
 

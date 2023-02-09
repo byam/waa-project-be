@@ -1,5 +1,6 @@
 package edu.miu.waa.project.backend.domain.dto.response;
 
+import edu.miu.waa.project.backend.domain.dto.PropertyDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class UserResponseDto {
 
     private String email;
 
-    private List<PropertyUserResponseDto> properties;
+    private List<PropertyDto> properties;
+    private List<PropertyDto> favourites;
 
 }

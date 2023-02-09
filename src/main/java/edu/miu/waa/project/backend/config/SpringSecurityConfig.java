@@ -80,11 +80,21 @@ public class SpringSecurityConfig {
                 .requestMatchers(HttpMethod.GET, "/api/v1/properties**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/api/v1/properties").hasAuthority(RoleType.OWNER.name())
                 .requestMatchers(HttpMethod.PUT, "/api/v1/properties/*").hasAuthority(RoleType.OWNER.name())
+
+                .requestMatchers(HttpMethod.POST, "/api/v1/properties/*/inquiry").hasAuthority(RoleType.CUSTOMER.name())
+                .requestMatchers(HttpMethod.GET, "/api/v1/properties/*/inquiry").hasAnyAuthority(RoleType.CUSTOMER.name(), RoleType.OWNER.name())
+
                 .requestMatchers(HttpMethod.POST, "/api/v1/properties/*/offer").hasAuthority(RoleType.CUSTOMER.name())
                 .requestMatchers(HttpMethod.GET, "/api/v1/properties/*/offer").hasAnyAuthority(RoleType.CUSTOMER.name(), RoleType.OWNER.name())
                 .requestMatchers(HttpMethod.PUT, "/api/v1/properties/*/offer").hasAnyAuthority(RoleType.CUSTOMER.name(), RoleType.OWNER.name())
+
                 .requestMatchers(HttpMethod.GET, "/api/v1/offers").hasAuthority(RoleType.CUSTOMER.name())
                 .requestMatchers(HttpMethod.GET, "/api/v1/offers/owner/*").hasAuthority(RoleType.OWNER.name())
+
+
+                .requestMatchers(HttpMethod.GET, "/api/v1/inquiry").hasAuthority(RoleType.CUSTOMER.name())
+                .requestMatchers(HttpMethod.GET, "/api/v1/inquiry/owner/*").hasAuthority(RoleType.OWNER.name())
+
                 .requestMatchers(HttpMethod.PUT, "/api/v1/offers").hasAnyAuthority(RoleType.CUSTOMER.name(), RoleType.OWNER.name())
 
                 .requestMatchers("/api/v1/admin/**").hasAuthority(RoleType.ADMIN.name())
