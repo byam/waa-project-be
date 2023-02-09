@@ -68,8 +68,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<UserResponseDto> findAll() {
         List<UserResponseDto> users = new ArrayList<>();
-        userRepo.findAll().forEach(u -> {
-            UserResponseDto user = modelMapper.map(u, UserResponseDto.class)
+        userRepo.findAllExceptAdmin().forEach(u -> {
+            UserResponseDto user = modelMapper.map(u, UserResponseDto.class);
             user.setRole(u.getRoles().get(0).getRole());
             users.add(user);
         });
