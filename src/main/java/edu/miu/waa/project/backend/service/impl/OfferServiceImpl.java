@@ -70,6 +70,7 @@ public class OfferServiceImpl implements OfferService {
             return offerRepo.findAllByUserId(loggedInUser.getId()).stream().map(o -> {
                 OfferResponseDto offer = modelMapper.map(o, OfferResponseDto.class);
                 offer.setPropertyId(o.getProperty().getId());
+                offer.setPropertyStatus(o.getProperty().getPropertyStatus());
                 return offer;
             }).toList();
         }
@@ -85,6 +86,7 @@ public class OfferServiceImpl implements OfferService {
         return offerRepo.findAllByOwnerId(ownerId).stream().map(o -> {
             OfferResponseDto offer = modelMapper.map(o, OfferResponseDto.class);
             offer.setPropertyId(o.getProperty().getId());
+            offer.setPropertyStatus(o.getProperty().getPropertyStatus());
             return offer;
         }).toList();
     }
