@@ -2,9 +2,9 @@ spring:
   application:
     name: Property Management
   datasource:
-    url: jdbc:postgresql://localhost:54321/property-mgmt
+    url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
-    password: secret
+    password: postgres
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -18,5 +18,17 @@ spring:
   sql:
     init:
       mode: always
+  mail:
+    host: smtp.elasticemail.com
+    port: 2525
+    username: waaprojectfinal@gmail.com
+    password: exsbsvukybjfabor
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 server:
   port: 8080
+
