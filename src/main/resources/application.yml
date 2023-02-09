@@ -19,10 +19,10 @@ spring:
     init:
       mode: always
   mail:
-    host: smtp.elasticemail.com
-    port: 2525
-    username: waaprojectfinal@gmail.com
-    password: exsbsvukybjfabor
+    host: smtp-mail.outlook.com
+    port: 25
+    username: waaboom123@outlook.com
+    password: "Woo123456#"
     properties:
       mail:
         smtp:
