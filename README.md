@@ -9,6 +9,6 @@ docker rm $(docker ps --filter status=exited -q)
 docker-compose up -d
 ```
 
-## APIs
+## API Documentation
 
-- `http://localhost:8080/api/v1/properties`
+- Swagger: `http://localhost:8080/swagger-ui/index.html`

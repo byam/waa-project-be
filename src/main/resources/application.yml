@@ -2,7 +2,7 @@ spring:
   application:
     name: Property Management
   datasource:
-    url: jdbc:postgresql://localhost:54321/property-mgmt
+    url: jdbc:postgresql://localhost:54321/postgres
     username: postgres
     password: secret
   jpa:
