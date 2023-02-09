@@ -84,6 +84,10 @@ public class SpringSecurityConfig {
                 .requestMatchers(HttpMethod.POST, "/api/v1/properties/*/inquiry").hasAuthority(RoleType.CUSTOMER.name())
                 .requestMatchers(HttpMethod.GET, "/api/v1/properties/*/inquiry").hasAnyAuthority(RoleType.CUSTOMER.name(), RoleType.OWNER.name())
 
+                .requestMatchers(HttpMethod.POST, "/api/v1/properties/*/favourite").hasAuthority(RoleType.CUSTOMER.name())
+                .requestMatchers(HttpMethod.DELETE, "/api/v1/properties/*/favourite").hasAuthority(RoleType.CUSTOMER.name())
+
+
                 .requestMatchers(HttpMethod.POST, "/api/v1/properties/*/offer").hasAuthority(RoleType.CUSTOMER.name())
                 .requestMatchers(HttpMethod.GET, "/api/v1/properties/*/offer").hasAnyAuthority(RoleType.CUSTOMER.name(), RoleType.OWNER.name())
                 .requestMatchers(HttpMethod.PUT, "/api/v1/properties/*/offer").hasAnyAuthority(RoleType.CUSTOMER.name(), RoleType.OWNER.name())

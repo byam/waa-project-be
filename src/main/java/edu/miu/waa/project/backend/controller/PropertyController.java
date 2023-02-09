@@ -49,6 +49,11 @@ public class PropertyController {
         propertyService.favourite(id);
     }
 
+    @DeleteMapping("/{id}/favourite")
+    public void removeFavourite(@PathVariable long id) {
+        propertyService.removeFavourite(id);
+    }
+
     @PostMapping("/{id}/offer")
     public HttpResponse offer(@PathVariable long id, @RequestBody OfferRequestDto offerDto) {
         return offerService.save(id, offerDto);
@@ -59,10 +64,6 @@ public class PropertyController {
         return inquiryService.save(id, inquiryRequestDto);
     }
 
-    @DeleteMapping("/{id}/favourite")
-    public void removeFavourite(@PathVariable long id) {
-        propertyService.removeFavourite(id);
-    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
