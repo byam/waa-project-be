@@ -25,7 +25,7 @@ INSERT INTO properties (title, description, price, address, image, city, state, 
                         property_status, owner_id)
 VALUES ('Property 3', 'Excellent', 100000, '1000N',
         'https://images.unsplash.com/photo-1423768164017-3f27c066407f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8YnVpbGRpbmdzfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
-        'fairfield', 'iowa', '52557', 'RENT', 'APARTMENT', 'AVAILABLE', 2);
+        'fairfield', 'iowa', '52557', 'SALE', 'APARTMENT', 'AVAILABLE', 2);
 
 INSERT INTO properties (title, description, price, address, image, city, state, zip_code, listing_type, property_type,
                         property_status, owner_id)
@@ -45,10 +45,10 @@ INSERT INTO offers (message, offer_status, price, property_id, user_id)
 VALUES ('I Like this Property', 'APPROVED', 80000, 2, 3);
 
 INSERT INTO offers (message, offer_status, price, property_id, user_id)
-VALUES ('I want to offer Property', 'PENDING', 80000, 5, 3);
+VALUES ('I want to offer Property', 'APPROVED', 80000, 3, 3);
 
 INSERT INTO offers (message, offer_status, price, property_id, user_id)
-VALUES ('I am in love', 'APPROVED', 80000, 5, 3);
+VALUES ('I am in love', 'PENDING', 80000, 5, 3);
 
 -- -- ROLES
     INSERT
