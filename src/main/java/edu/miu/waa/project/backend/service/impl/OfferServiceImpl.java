@@ -106,9 +106,13 @@ public class OfferServiceImpl implements OfferService {
         //sync with product status
         if (userService.isOwner()) {
             if (status.equals(OfferStatus.APPROVED)) {
+                emailService.send(offer.getUser().getEmail(), "Your Offer for - " + offer.getProperty().getTitle() + " has been approved", offer.getProperty().getOwner().getName() + " has approved your offer");
+
                 propertyService.updateStatus(offer.getProperty().getId(), PropertyStatus.PENDING);
             }
             if (status.equals(OfferStatus.REJECTED)) {
+                emailService.send(offer.getUser().getEmail(), "Your Offer for - " + offer.getProperty().getTitle() + " has been rejected", offer.getProperty().getOwner().getName() + " has rejected your offer");
+
                 propertyService.updateStatus(offer.getProperty().getId(), PropertyStatus.AVAILABLE);
             }
         }
